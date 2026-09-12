@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: vmpc
+Version: 0.6
+Summary: A terminal agent CLI: rich + prompt_toolkit, streaming, custom markdown renderer
+Requires-Python: >=3.10
+Requires-Dist: rich>=13.0
+Requires-Dist: prompt_toolkit>=3.0.40
+Requires-Dist: httpx>=0.27
