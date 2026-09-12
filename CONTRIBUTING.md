@@ -7,7 +7,7 @@ conventions are worth knowing before you send a change.
 ## Setting up
 
 ```bash
-git clone https://github.com/<your-username>/vmpc.git
+git clone https://github.com/AllR1ght01/vmpc.git
 cd vmpc
 pip install -e .
 python _smoke.py                                 # should print no errors
