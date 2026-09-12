@@ -171,4 +171,4 @@ reasonable starting point if you're the one deciding.)
 <div align="center">
 <sub>Built with 🩷 for the terminal.</sub>
 </div>
-ангелы света.xyz
+
