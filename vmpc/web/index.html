@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>vmpc</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">V</span><div><strong>vmpc</strong><small>AI workspace</small></div></div>
+      <button id="newChat" class="new-chat"><span>＋</span> Новый чат</button>
+      <label class="search"><span>⌕</span><input id="chatSearch" placeholder="Поиск по чатам"></label>
+      <div class="section-label">Недавние</div>
+      <nav id="chatList" class="chat-list"></nav>
+      <div class="sidebar-bottom">
+        <button id="endpointButton" class="endpoint-card">
+          <span id="endpointDot" class="status-dot"></span>
+          <span><strong id="endpointName">Endpoint не настроен</strong><small id="endpointModel">Открыть настройки</small></span>
+          <span class="chevron">›</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="sidebarToggle" class="icon-button mobile-only" aria-label="Меню">☰</button>
+        <div class="title-block"><h1 id="chatTitle">Новый чат</h1><span id="headerStatus">Готов к работе</span></div>
+        <div class="top-actions"><span id="modeBadge" class="mode-badge">Обычный</span><button id="exportChat" class="icon-button" title="Скачать чат в Markdown">⇩</button><button id="settingsButton" class="icon-button" title="Настройки">⚙</button></div>
+      </header>
+
+      <section id="messageScroll" class="message-scroll">
+        <div id="welcome" class="welcome">
+          <div class="spark">✦</div>
+          <h2>Чем могу помочь?</h2>
+          <p>Поговорите с любой подключённой моделью или добавьте контекст проекта.</p>
+          <div class="suggestions">
+            <button data-prompt="Объясни эту тему простыми словами">Объяснить тему <span>→</span></button>
+            <button data-prompt="Помоги спроектировать приложение">Продумать приложение <span>→</span></button>
+            <button data-prompt="Проверь мой код и найди проблемы">Проверить код <span>→</span></button>
+          </div>
+        </div>
+        <div id="messages" class="messages"></div>
+      </section>
+
+      <section class="composer-wrap">
+        <div id="attachments" class="attachments"></div>
+        <div class="composer">
+          <textarea id="prompt" rows="1" placeholder="Напишите сообщение…"></textarea>
+          <div class="composer-tools">
+            <div class="tool-group">
+              <button id="attachButton" class="tool-button" title="Добавить контекст">＋ <span>Контекст</span></button>
+              <div id="attachMenu" class="popover attach-menu hidden">
+                <button data-kind="file"><b>Файл</b><small>Добавить один документ</small></button>
+                <button data-kind="folder"><b>Папка</b><small>Прочитать исходники проекта</small></button>
+              </div>
+              <button id="modeButton" class="tool-button"><span class="warm-dot"></span><span id="modeButtonText">Обычный</span><span class="down">⌄</span></button>
+              <div id="modeMenu" class="popover choice-menu hidden"></div>
+            </div>
+            <div class="tool-group right-tools">
+              <button id="modelButton" class="model-button"><span id="modelStatus" class="status-dot"></span><span id="modelButtonText">Выберите модель</span><span class="down">⌄</span></button>
+              <div id="modelMenu" class="popover model-menu hidden">
+                <div class="popover-title"><span>Модели</span><button id="refreshModels" title="Обновить список">↻</button></div>
+                <input id="modelSearch" class="menu-search" placeholder="Найти модель">
+                <div id="modelList" class="model-list"></div>
+                <button id="probeModels" class="probe-button">Проверить доступные модели</button>
+              </div>
+              <button id="stopButton" class="stop-button hidden" title="Остановить">■</button>
+              <button id="sendButton" class="send-button" title="Отправить">↑</button>
+            </div>
+          </div>
+        </div>
+        <div class="composer-hint">Enter — отправить · Shift+Enter — новая строка</div>
+      </section>
+    </main>
+  </div>
+
+  <div id="quickReplies" class="quick-replies hidden"><span>Быстрый ответ:</span><button data-reply="Да">Да</button><button data-reply="Нет">Нет</button></div>
+
+  <div id="settingsModal" class="modal hidden">
+    <div class="modal-card settings-card">
+      <div class="modal-head"><div><h3>Подключение модели</h3><p>OpenAI- и Anthropic-compatible API</p></div><button class="modal-close">×</button></div>
+      <div class="settings-grid">
+        <aside><button id="addProvider" class="add-provider">＋ Новый endpoint</button><div id="providerList" class="provider-list"></div></aside>
+        <form id="providerForm">
+          <input id="oldName" type="hidden">
+          <label>Название<input id="providerName" required placeholder="OpenRouter"></label>
+          <label>Формат<select id="providerWire"><option value="openai">OpenAI compatible</option><option value="anthropic">Anthropic compatible</option></select></label>
+          <label class="wide">Base URL<input id="providerUrl" required placeholder="https://api.example.com/v1"></label>
+          <label class="wide">Модель по умолчанию<input id="providerDefaultModel" placeholder="claude-sonnet-4-5"></label>
+          <label>Источник ключа<select id="providerKeyType"><option value="static-api-key">API key</option><option value="env-var">Переменная окружения</option><option value="command">Команда</option></select></label>
+          <label>Авторизация<select id="providerAuth"><option value="bearer">Bearer</option><option value="x-api-key">x-api-key</option><option value="authorization">Authorization</option><option value="custom-header">Custom header</option><option value="none">Без авторизации</option></select></label>
+          <label class="wide">Ключ или имя переменной<input id="providerKey" type="password" placeholder="Оставьте пустым, чтобы не менять"></label>
+          <label class="check wide"><input id="providerReasoning" type="checkbox"><span>Показывать reasoning модели</span></label>
+          <div class="form-actions wide"><button type="button" class="secondary modal-close">Отмена</button><button type="submit" class="primary">Сохранить endpoint</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirmModal" class="modal hidden">
+    <div class="modal-card confirm-card"><div class="confirm-icon">⌁</div><h3>Проверить модели?</h3><p>Будут отправлены короткие запросы по 1 токену. Это может занять время и учитываться провайдером как API-вызовы.</p><div class="confirm-actions"><button id="probeNo" class="secondary">Нет</button><button id="probeYes" class="primary">Да, проверить</button></div></div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

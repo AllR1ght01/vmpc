@@ -1,16 +1,20 @@
 [project]
 name = "vmpc"
-version = "0.6"
+# ПРАВИЛО ВЕРСИЙ: при каждом обновлении кода поднимать версию на 0.1
+# (например 0.6 -> 0.7). Версия должна совпадать с vmpc/__init__.py:__version__
+version = "1.0"
 description = "A terminal agent CLI: rich + prompt_toolkit, streaming, custom markdown renderer"
 requires-python = ">=3.10"
 dependencies = [
     "rich>=13.0",
     "prompt_toolkit>=3.0.40",
     "httpx>=0.27",
+    "pywebview>=6.2",
 ]
 
 [project.scripts]
 vmpc = "vmpc.cli:main"
+vmpc-gui = "vmpc.gui:main"
 
 [build-system]
 requires = ["setuptools>=61"]
@@ -18,3 +22,6 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 include = ["vmpc*"]
+
+[tool.setuptools.package-data]
+vmpc = ["web/*.html", "web/*.css", "web/*.js"]

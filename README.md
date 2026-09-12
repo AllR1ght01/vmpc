@@ -54,6 +54,7 @@ modes, file context) that make that pleasant to do every day.
 |  **Prompt modes** | `/mode` switches named system prompts mid-conversation, each optionally unlocking its own commands. Write your own with `/mode add`. |
 |  **File context** | `/context` attaches a folder or file, re-read from disk every turn — it can't go stale, and a saved chat can't balloon into a copy of your repository. |
 |  **Saved chats** | Every conversation is a JSON file, auto-titled by the model after the first exchange, resumable by id. |
+|  **Desktop interface** | A dark WebView2 app with chat history, model and mode pickers, streaming replies, code blocks, and Markdown export. |
 |  **Bilingual interface** | `/lang` switches vmpc's *own* text — not the model's replies — between English and Russian, instantly, no restart. |
 |  **One-shot mode** | `vmpc chat "..."`, `vmpc api list`, `vmpc models`, `vmpc chats` all work outside the REPL, sharing config, transport, and renderer with the interactive app. |
 
@@ -67,9 +68,8 @@ cd vmpc
 pip install -e .
 ```
 
-This pulls in `rich`, `prompt_toolkit`, and `httpx` — all pure-Python or
-pre-built wheels, so no compiler toolchain is needed anywhere, including
-[Termux](https://termux.dev/) on Android.
+This pulls in `rich`, `prompt_toolkit`, `httpx`, and `pywebview`. The desktop
+window uses the system WebView2 Runtime on Windows.
 
 ## Quickstart
 
@@ -84,6 +84,16 @@ or skip the REPL entirely:
 vmpc api add                       # configure an endpoint once
 vmpc chat "explain how DNS works"  # one-shot, no interactive session
 ```
+
+Launch the desktop interface on Windows with:
+
+```powershell
+vmpc-gui
+# or without the installed command: python vmpc_gui.py
+```
+
+The prebuilt `vmpc-gui.exe` does not require Python. It only needs WebView2,
+which is normally already present on Windows 10/11.
 
 ## Commands
 
