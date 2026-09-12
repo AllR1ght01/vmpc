@@ -48,21 +48,21 @@ modes, file context) that make that pleasant to do every day.
 
 |  |  |
 |---|---|
-| 🔌 **Any endpoint** | OpenAI- or Anthropic-shaped: official APIs, Groq, Together, vLLM, LM Studio, OpenRouter, Bedrock gateways, proxies. One `/api add` wizard covers the wire format, auth scheme, and key storage (static, env var, or a shell command — 1Password, `pass`, vault). |
-| 🧠 **Reasoning channel** | Extended-thinking / reasoning-model output streams in its own section, paced against the answer so neither channel starves the other. |
-| 🎨 **Terminal-native markdown** | A renderer built for a terminal, not a browser — fenced code, tables, and inline formatting, no headless-browser dependency. |
-| 🎭 **Prompt modes** | `/mode` switches named system prompts mid-conversation, each optionally unlocking its own commands. Write your own with `/mode add`. |
-| 📎 **File context** | `/context` attaches a folder or file, re-read from disk every turn — it can't go stale, and a saved chat can't balloon into a copy of your repository. |
-| 💾 **Saved chats** | Every conversation is a JSON file, auto-titled by the model after the first exchange, resumable by id. |
-| 🌐 **Bilingual interface** | `/lang` switches vmpc's *own* text — not the model's replies — between English and Russian, instantly, no restart. |
-| ⚡ **One-shot mode** | `vmpc chat "..."`, `vmpc api list`, `vmpc models`, `vmpc chats` all work outside the REPL, sharing config, transport, and renderer with the interactive app. |
+|  **Any endpoint** | OpenAI- or Anthropic-shaped: official APIs, Groq, Together, vLLM, LM Studio, OpenRouter, Bedrock gateways, proxies. One `/api add` wizard covers the wire format, auth scheme, and key storage (static, env var, or a shell command — 1Password, `pass`, vault). |
+|  **Reasoning channel** | Extended-thinking / reasoning-model output streams in its own section, paced against the answer so neither channel starves the other. |
+|  **Terminal-native markdown** | A renderer built for a terminal, not a browser — fenced code, tables, and inline formatting, no headless-browser dependency. |
+|  **Prompt modes** | `/mode` switches named system prompts mid-conversation, each optionally unlocking its own commands. Write your own with `/mode add`. |
+|  **File context** | `/context` attaches a folder or file, re-read from disk every turn — it can't go stale, and a saved chat can't balloon into a copy of your repository. |
+|  **Saved chats** | Every conversation is a JSON file, auto-titled by the model after the first exchange, resumable by id. |
+|  **Bilingual interface** | `/lang` switches vmpc's *own* text — not the model's replies — between English and Russian, instantly, no restart. |
+|  **One-shot mode** | `vmpc chat "..."`, `vmpc api list`, `vmpc models`, `vmpc chats` all work outside the REPL, sharing config, transport, and renderer with the interactive app. |
 
 ## Install
 
 Requires Python 3.10+.
 
 ```bash
-git clone https://github.com/<your-username>/vmpc.git
+git clone https://github.com/AllR1ght01/vmpc.git
 cd vmpc
 pip install -e .
 ```
